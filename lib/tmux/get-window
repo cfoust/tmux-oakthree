@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# Get the current session.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_DIR/../oakthree.sh
+
+_tmux display-message -p '#W'

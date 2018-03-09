@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#
+# Create a new project given a path.
+# $1 - Absolute path which in which the project will start.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_DIR/../oakthree.sh
+
+if [ -z "$1" ]; then
+  exit
+fi
+
+directory="$1"
+basename=$(basename "$directory")

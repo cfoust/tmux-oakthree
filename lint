@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Lint the codebase.
+
+shellcheck bin/* lib.sh

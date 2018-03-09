@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Create a new project given a path.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_DIR/../lib/oakthree.sh
+
+PWD="$1"
+BASENAME=$(basename "$PWD")
