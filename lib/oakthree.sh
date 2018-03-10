@@ -31,10 +31,10 @@ _tmux() {
     return $?
   fi
 
-  $tmux_bin $@
+  $tmux_bin "$@"
 }
 
 _fzf() {
-  fzf --margin 40%,30% --border $@
+  fzf --margin 40%,30% --border "$@"
 }
 

@@ -1,27 +1,30 @@
 #!/usr/bin/env bash
-# oakthree
-# @tmux, abstracted
-# This file switches between oakthree shells.
+#
+# Switch between oakthree shells.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $SCRIPT_DIR/utils.sh
+source $SCRIPT_DIR/../lib/oakthree.sh
 
-SESSION="$(tmux_get_session)"
+SESSION=$(_tmux get-session)
 
-project=$($TM list-windows -t ot~ -F "#{pane_current_path} #{pane_current_command} [#{window_index}]")
+project=$(_tmux list-windows \
+  -t "$OT_SHELLS" \
+  -F "#{pane_current_path} #{pane_current_command} [#{window_index}]")
 
 # Remove the last window from the list if we're already in the target session.
 # This is so the fzf window doesn't show up.
-if [ "$SESSION" == "ot~" ]; then
+if [ "$SESSION" == "$OT_SHELLS" ]; then
   project=$(echo "$project" | sed '$d') # Deletes the last line in $project
 fi
 
 project=$(echo "$project" | \
-          $FZF -n 1..2 --with-nth=1,2 --header="$(ot_make_header 'shells')" | \
-          python $SCRIPT_DIR/extract_window_id.py)
+          _fzf -n 1..2 --with-nth=1,2 --header="oakthree - shells" | \
+          perl -n -e '/\[(\d+)\]/ && print $1') # Extract window id
 
-if [ "$SESSION" != "ot~" ]; then
-  $TM switch-client -t ot~\; select-window -t $project
+if [ "$SESSION" != "$OT_SHELLS" ]; then
+  # Has to be done sequentially like this in one tmux command, so this logic
+  # can't be simplified.
+  _tmux switch-client -t "$OT_SHELLS"\; select-window -t $project
 else
-  $TM select-window -t $project
+  _tmux select-window -t $project
 fi
