@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# Remove a window from the session if it exists.
+# This is just a wrapper so that tmux doesn't print anything.
+# $2 - Name of the window to look for.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_DIR/../oakthree.sh
+
+_tmux kill-window -t $2 > /dev/null 2>&1

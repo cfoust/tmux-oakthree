@@ -4,6 +4,11 @@
 # A small set of common logic for working with tmux sessions and fzf.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BIN_DIR="$SCRIPT_DIR/../bin"
+
+OT_SHELL_SUFFIX="~"
+OT_PROJECTS="ot"
+OT_SHELLS="ot$OT_SHELL_SUFFIX"
 
 OT_HEADER_PRE="oakthree ["
 OT_HEADER_POST="]"
@@ -19,7 +24,7 @@ _tmux() {
 
   # Act as a kind of namespace for adding functionality to tmux.
   local target_script
-  target_script="$SCRIPT_DIR/lib/tmux/$1"
+  target_script="$SCRIPT_DIR/tmux/$1"
 
   if [ -f "$target_script" ]; then
     bash "$target_script" $@
@@ -32,3 +37,4 @@ _tmux() {
 _fzf() {
   fzf --margin 40%,30% --border $@
 }
+

@@ -11,4 +11,19 @@ if [ -z "$1" ]; then
 fi
 
 directory="$1"
-basename=$(basename "$directory")
+window_name=$(basename "$directory")
+shell_name="$window_name$OT_SHELL_SUFFIX"
+
+_tmux switch-client -t $OT_PROJECTS
+
+_tmux remove-window "$window_name"
+_tmux remove-window "$shell_name"
+
+_tmux new-window -d \
+  -c "$directory" \
+  -n "$shell_name"
+
+_tmux new-window \
+  -c "'$directory'" \
+  -n "$window_name" \
+  "$BIN_DIR/editor"
