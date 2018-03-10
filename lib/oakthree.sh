@@ -27,6 +27,7 @@ _tmux() {
   target_script="$SCRIPT_DIR/tmux/$1"
 
   if [ -f "$target_script" ]; then
+    shift
     bash "$target_script" $@
     return $?
   fi
@@ -35,6 +36,5 @@ _tmux() {
 }
 
 _fzf() {
-  fzf --margin 40%,30% --border "$@"
+  fzf --margin 30%,30% "$@"
 }
-
