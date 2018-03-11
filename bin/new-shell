@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# Create a new shell at the path of the current pane.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_DIR/../lib/oakthree.sh
+
+path=$(_tmux display-message -p '#{pane_current_path}')
+session=$(_tmux get-session)
+
+if [ "$session" == "$OT_SHELLS" ]; then
+  _tmux new-window -c "$path"
+else
+  _tmux switch-client -t "$OT_SHELLS"\; new-window -c "$path"
+fi

@@ -22,8 +22,26 @@ _tmux new-session -d -s "$OT_PROJECTS"
 _tmux bind q kill-server
 
 # Convert any shell into an oakthree project.
-_tmux bind o if-shell \
-  "bash $BIN_DIR/is_shell #{session_name}" \
-  "run-shell 'bash $BIN_DIR/new'"
+_tmux bind o run-shell "bash $BIN_DIR/new-project"
 
-_tmux switch-client -t "$OT_SHELLS"
+# Create a new shell in the current directory.
+# This can be done both in shells and in projects.
+_tmux bind j run-shell "bash $BIN_DIR/new-shell"
+
+_tmux bind k new-window "bash $BIN_DIR/switch-project"
+_tmux bind "\;" new-window "bash $BIN_DIR/switch-shell"
+
+# Switch back and forth between the editor and the shell inside a project.
+_tmux bind -n "C-l" if-shell "bash $BIN_DIR/is-shell #{window_name}" \
+  'next-window' \
+  'previous-window'
+
+# Switch back and forth between the project workspace and the shells.
+_tmux bind "C-l" if-shell "bash $BIN_DIR/is-shell #{session_name}" \
+  "switch-client -t $OT_PROJECTS" \
+  "switch-client -t $OT_SHELLS"
+
+# Hacky workaround to get the session to switch at startup.  If you just run
+# the switch-client command by itself in this context, tmux hasn't started up
+# yet. Gotta create a window that will immediately close.
+_tmux new-window "tmux switch-client -t $OT_SHELLS"
