@@ -14,16 +14,18 @@ directory="$1"
 window_name=$(basename "$directory")
 shell_name="$window_name$OT_SHELL_SUFFIX"
 
-_tmux switch-client -t $OT_PROJECTS
+# Probably have to refine this at some point. If the user tries to start a
+# project in a directory with a basename identical to another project, the old
+# project's windows are removed. Might want to add some method for allowing
+# that in the future, but it's not high-priority right now.
+_tmux remove-window "$OT_PROJECTS:$window_name"
+_tmux remove-window "$OT_PROJECTS:$shell_name"
 
-_tmux remove-window "$window_name"
-_tmux remove-window "$shell_name"
-
-_tmux new-window -d \
-  -c "$directory" \
-  -n "$shell_name"
-
-_tmux new-window \
-  -c "'$directory'" \
-  -n "$window_name" \
-  "$BIN_DIR/editor"
+_tmux switch-client -t $OT_PROJECTS \; \
+  new-window -d         \
+    -c "$directory"     \
+    -n "$shell_name" \; \
+  new-window            \
+    -c "$directory"     \
+    -n "$window_name"   \
+    "$BIN_DIR/editor"
