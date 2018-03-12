@@ -3,7 +3,7 @@
 # Create a new project given a path.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $SCRIPT_DIR/../oakthree.sh
+source "$SCRIPT_DIR"/../oakthree.sh
 
 if [ -z "$1" ]; then
   exit
@@ -20,10 +20,11 @@ shell_name="$window_name$OT_SHELL_SUFFIX"
 _tmux remove-window "$OT_PROJECTS:$window_name"
 _tmux remove-window "$OT_PROJECTS:$shell_name"
 
-_tmux switch-client -t $OT_PROJECTS \; \
+_tmux switch-client -t "$OT_PROJECTS" \; \
   new-window -d         \
     -c "$directory"     \
-    -n "$shell_name" \; \
+    -n "$shell_name"    \
+    "$BIN_DIR/shell" \; \
   new-window            \
     -c "$directory"     \
     -n "$window_name"   \

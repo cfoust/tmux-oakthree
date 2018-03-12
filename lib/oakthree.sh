@@ -4,14 +4,11 @@
 # A small set of common logic for working with tmux sessions and fzf.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-BIN_DIR="$SCRIPT_DIR/../bin"
+export BIN_DIR="$SCRIPT_DIR"/../bin
 
 OT_SHELL_SUFFIX="~"
-OT_PROJECTS="ot"
-OT_SHELLS="ot$OT_SHELL_SUFFIX"
-
-OT_HEADER_PRE="oakthree ["
-OT_HEADER_POST="]"
+export OT_PROJECTS="ot"
+export OT_SHELLS="ot$OT_SHELL_SUFFIX"
 
 # Wrapped executables. We wrap some calls to tmux and fzf so that we can extend
 # their functionality and make consistent UI's according to some global
@@ -28,7 +25,7 @@ _tmux() {
 
   if [ -f "$target_script" ]; then
     shift
-    bash "$target_script" $@
+    bash "$target_script" "$@"
     return $?
   fi
 

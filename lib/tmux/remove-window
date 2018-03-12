@@ -5,6 +5,6 @@
 # $1 - Name of the window to look for.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $SCRIPT_DIR/../oakthree.sh
+source "$SCRIPT_DIR"/../oakthree.sh
 
-_tmux kill-window -t $1 > /dev/null 2>&1
+_tmux kill-window -t "$1" > /dev/null 2>&1

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# Start up whatever program is in $EDITOR and reopen it when it closes.
+
+# Allow the use of C-s in vim
+stty -ixon
+
+while :; do $SHELL; done

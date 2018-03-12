@@ -3,7 +3,7 @@
 # Create a new shell at the path of the current pane.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $SCRIPT_DIR/../lib/oakthree.sh
+source "$SCRIPT_DIR"/../lib/oakthree.sh
 
 path=$(_tmux display-message -p '#{pane_current_path}')
 session=$(_tmux get-session)

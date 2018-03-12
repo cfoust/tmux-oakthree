@@ -4,12 +4,12 @@
 # This file switches between oakthree projects.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $SCRIPT_DIR/../lib/oakthree.sh
+source "$SCRIPT_DIR"/../lib/oakthree.sh
 
 SESSION=$(_tmux get-session)
 
 project=$(_tmux list-windows \
-  -t $OT_PROJECTS \
+  -t "$OT_PROJECTS" \
   -F "#{window_name} [#{window_index}]")
 
 # Remove the "bash" window. Easier than managing the number of windows

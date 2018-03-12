@@ -3,6 +3,6 @@
 # Create a new project given a path.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $SCRIPT_DIR/../lib/oakthree.sh
+source "$SCRIPT_DIR"/../lib/oakthree.sh
 
 _tmux new-project "$(_tmux display-message -p '#{pane_current_path}')"

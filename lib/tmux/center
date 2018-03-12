@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Get the current session.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../oakthree.sh
+
+BIN_DIR="$SCRIPT_DIR/../bin"
+
+# TODO Generate a sensible amount automatically
+margin=30
+
+panes=$(_tmux display-message -p "#{window_panes}")
+
+if [ "$panes" -gt "1" ]; then
+  exit
+fi
+
+_tmux split-window -h -l "$margin" "bash $BIN_DIR/blank"
+_tmux select-pane -L
+_tmux split-window -hb -l "$margin" "bash $BIN_DIR/blank"
+_tmux select-pane -R

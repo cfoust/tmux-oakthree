@@ -3,7 +3,7 @@
 # Switch between oakthree shells.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $SCRIPT_DIR/../lib/oakthree.sh
+source "$SCRIPT_DIR"/../lib/oakthree.sh
 
 SESSION=$(_tmux get-session)
 
@@ -24,7 +24,7 @@ project=$(echo "$project" | \
 if [ "$SESSION" != "$OT_SHELLS" ]; then
   # Has to be done sequentially like this in one tmux command, so this logic
   # can't be simplified.
-  _tmux switch-client -t "$OT_SHELLS"\; select-window -t $project
+  _tmux switch-client -t "$OT_SHELLS"\; select-window -t "$project"
 else
-  _tmux select-window -t $project
+  _tmux select-window -t "$project"
 fi
