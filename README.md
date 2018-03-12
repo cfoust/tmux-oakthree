@@ -15,7 +15,7 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
   minimal and functionality consistent.
 * **fast**: Since `oakthree` uses fzf, your development speed is no longer
   bottlenecked by how quickly you can switch tmux windows.
-* **comfort**: `oakthree` comes with a key binding (`<tmux-prefix> g`) that
+* **comfort**: `oakthree` comes with a key binding (`prefix` <kbd>G</kbd>) that
   centers whatever you're looking at in the center of your screen. No more
   looking slightly to the left.
 
@@ -32,13 +32,13 @@ of the box.
 ## usage
 
 `oakthree` starts with just a single shell window. When you find a directory in
-which you'd like to start working, type `<tmux-prefix> o`. This opens a new
+which you'd like to start working, type `prefix` <kbd>O</kbd>. This opens a new
 `oakthree` "project," which is really just a window with your editor and an
-accompanying shell, which you can switch between by typing `Ctrl+L` unprefixed
-by your tmux bindings.
+accompanying shell, which you can switch between by typing <kbd>Ctrl</kbd> +
+<kbd>L</kbd> unprefixed by your tmux bindings.
 
-Type `<tmux-prefix> k` to open up a fuzzy finder of projects and `<tmux-prefix>
-l` to search through shells.
+Type `prefix` <kbd>K</kbd> to open up a fuzzy finder of projects and
+`prefix` <kbd>L</kbd> to search through shells.
 
 ## installation
 
