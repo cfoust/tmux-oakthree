@@ -8,7 +8,7 @@ source $BASE_DIR/lib/oakthree.sh
 BIN_DIR="$BASE_DIR/bin"
 
 # Hide the useless status bar
-_tmux set -g status on
+_tmux set -g status off
 
 # Make pane borders nearly invisible
 _tmux set -g pane-active-border-fg black
