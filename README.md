@@ -39,17 +39,18 @@ keybinding below. This opens a window with your `$EDITOR` and an accompanying
 
 ## bindings
 
-*Everywhere:*
-* <kbd>[tmux-prefix]</kbd>+<kbd>K</kbd>: Open a fuzzy-finder for your open
+**Everywhere:**
+* <kbd>tmux prefix</kbd>+<kbd>K</kbd>: Open a fuzzy-finder for your open
   projects.
-* <kbd>[tmux-prefix]</kbd>+<kbd>L</kbd>: Open a fuzzy-finder for your open
-* <kbd>[tmux-prefix]</kbd>+<kbd>J</kbd>: Open a new shell in this window's
+* <kbd>tmux prefix</kbd>+<kbd>L</kbd>: Open a fuzzy-finder for your open
+  shells.
+* <kbd>tmux prefix</kbd>+<kbd>J</kbd>: Open a new shell in this window's
   directory.
-* <kbd>[tmux-prefix]</kbd>+<kbd>Ctrl</kbd>+<kbd>L</kbd>: Switch between the
+* <kbd>tmux prefix</kbd>+<kbd>Ctrl</kbd>+<kbd>L</kbd>: Switch between the
   most recent shell and the most recent project.
-* <kbd>[tmux-prefix]</kbd>+<kbd>G</kbd>: Center or uncenter the current window.
+* <kbd>tmux prefix</kbd>+<kbd>G</kbd>: Center or uncenter the current window.
 
-*Just in projects:*
+**Just in projects:**
 * [no prefix] <kbd>Ctrl</kbd>+<kbd>L</kbd>: Switch between a project's editor
   and its shell.
 
@@ -62,3 +63,10 @@ set -g @plugin 'cfoust/tmux-oakthree'
 ```
 
 Restart tmux and `tpm` will install oakthree automagically.
+
+**NOTE:** `oakthree` is a replacement for tmux's default bindings and
+environment. It switches to a new binding table and as a result none of your
+other bindings will be preserved. This is by design; the goal of the project is
+to offer an approachable and fast abstraction over the power of tmux. If you
+rely heavily on making your own windows and panes programmatically, `oakthree`
+is probably not for you.
