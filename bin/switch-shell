@@ -17,9 +17,18 @@ if [ "$SESSION" == "$OT_SHELLS" ]; then
   project=$(echo "$project" | sed '$d') # Deletes the last line in $project
 fi
 
+if [ -z "$project" ]; then
+  _tmux display-message "no oakthree shells"
+  exit 0
+fi
+
 project=$(echo "$project" | \
-          _fzf -n 1..2 --with-nth=1,2 --header="oakthree - shells" | \
+          _fzf -n 1..2 --with-nth=1,2 --header="oakthree | shells" | \
           perl -n -e '/\[(\d+)\]/ && print $1') # Extract window id
+
+if [ -z "$project" ]; then
+  exit 0
+fi
 
 if [ "$SESSION" != "$OT_SHELLS" ]; then
   # Has to be done sequentially like this in one tmux command, so this logic

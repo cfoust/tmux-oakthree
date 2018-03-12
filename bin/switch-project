@@ -22,6 +22,11 @@ if [ "$SESSION" == "$OT_PROJECTS" ]; then
   project=$(echo "$project" | sed '$d') # Deletes the last line in $project
 fi
 
+if [ -z "$project" ]; then
+  _tmux display-message "no oakthree projects"
+  exit 0
+fi
+
 # Filter out any shells.
 # TODO fix to allow for directories that end in $OT_SHELL_SUFFIX
 project=$( while read -r line; do
@@ -33,6 +38,10 @@ done <<< "$project")
 project=$(echo "$project" | \
   _fzf -n 1 --with-nth=1 --header="oakthree | projects" | \
   perl -n -e '/\[(\d+)\]/ && print $1')
+
+if [ -z "$project" ]; then
+  exit 0
+fi
 
 if [ "$SESSION" != "$OT_PROJECTS" ]; then
   _tmux switch-client -t "$OT_PROJECTS"\; select-window -t "$project"

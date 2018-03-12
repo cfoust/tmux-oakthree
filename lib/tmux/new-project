@@ -21,7 +21,7 @@ _tmux remove-window "$OT_PROJECTS:$window_name"
 _tmux remove-window "$OT_PROJECTS:$shell_name"
 
 _tmux switch-client -t "$OT_PROJECTS" \; \
-  new-window -d         \
+  new-window            \
     -c "$directory"     \
     -n "$shell_name"    \
     "$BIN_DIR/shell" \; \

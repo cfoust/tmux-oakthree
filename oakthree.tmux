@@ -8,15 +8,11 @@ source $BASE_DIR/lib/oakthree.sh
 BIN_DIR="$BASE_DIR/bin"
 
 # Hide the useless status bar
-_tmux set -g status off
+_tmux set -g status on
 
 # Make pane borders nearly invisible
 _tmux set -g pane-active-border-fg black
 _tmux set -g pane-active-border-bg default
-
-# Take over the calling session and consider all of its windows our shells.
-_tmux new-session -d -s "$OT_SHELLS"
-_tmux new-session -d -s "$OT_PROJECTS"
 
 # For debugging
 _tmux bind q kill-server
@@ -47,9 +43,6 @@ _tmux bind "C-l" if-shell "bash $BIN_DIR/is-shell #{session_name}" \
 # For now this is just a placeholder as the intention is to move it.
 _tmux bind g run-shell "bash $BASE_DIR/lib/tmux/center"
 
-# Hacky workaround to get the session to switch at startup.  If you just run
-# the switch-client command by itself in this context, tmux hasn't started up
-# yet. Gotta create a window that will immediately close.
-_tmux new-window "tmux switch-client -t $OT_SHELLS"
-
-_tmux set-hook after-new-window "run-shell bash $BASE_DIR/lib/tmux/center"
+# You have to wait for the new-session that gets called after tmux reads config files
+# in order to do any session/window/pane initialization.
+_tmux set-hook -g after-new-session "run-shell 'bash $BIN_DIR/bootstrap'"
