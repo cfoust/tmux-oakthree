@@ -2,4 +2,4 @@
 #
 # Lint the codebase.
 
-shellcheck bin/* lib/tmux/* lib/*.sh
+shellcheck --exclude=SC1090 bin/* lib/tmux/* lib/*.sh
