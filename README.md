@@ -1,4 +1,4 @@
-# tmux-oakthree
+# tmux-oakthree🌳
 
 > a tmux abstraction for the working developer
 
