@@ -13,6 +13,7 @@ margin=30
 panes=$(_tmux display-message -p "#{window_panes}")
 
 if [ "$panes" -gt "1" ]; then
+  _tmux select-pane -L\; kill-pane\; select-pane -R\; kill-pane
   exit
 fi
 

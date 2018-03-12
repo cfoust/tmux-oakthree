@@ -9,15 +9,16 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 ## features
 
 * **fuzzy-find everything**: vim's [ctrlp](https://github.com/kien/ctrlp.vim)
-  plugin is wonderful. `oakthree` brings similar functionality to tmux so that
-  you never have to manage panes again.
+  plugin makes vim awesome. `oakthree` brings similar functionality to tmux so
+  that you never have to manage panes again.
 * **portable**: All of `oakthree` is written in bash to keep dependencies
   minimal and functionality consistent.
 * **fast**: Since `oakthree` uses fzf, your development speed is no longer
-  bottlenecked by how quickly you can switch tmux windows.
+  bottlenecked by how quickly you can switch tmux windows. It saves you the
+  mental bandwidth of having to remember where all of your panes are.
 * **comfort**: `oakthree` comes with a key binding (`prefix` <kbd>G</kbd>) that
   centers whatever you're looking at in the center of your screen. No more
-  looking slightly to the left.
+  looking slightly to the left all day.
 
 ## purpose
 
@@ -32,13 +33,25 @@ of the box.
 ## usage
 
 `oakthree` starts with just a single shell window. When you find a directory in
-which you'd like to start working, type `prefix` <kbd>O</kbd>. This opens a new
-`oakthree` "project," which is really just a window with your editor and an
-accompanying shell, which you can switch between by typing <kbd>Ctrl</kbd> +
-<kbd>L</kbd> unprefixed by your tmux bindings.
+which you'd like to start working, make a new `oakthree` project with the
+keybinding below. This opens a window with your `$EDITOR` and an accompanying
+`$SHELL` that you can switch between easily.
 
-Type `prefix` <kbd>K</kbd> to open up a fuzzy finder of projects and
-`prefix` <kbd>L</kbd> to search through shells.
+## bindings
+
+*Everywhere:*
+* <kbd>[tmux-prefix]</kbd>+<kbd>K</kbd>: Open a fuzzy-finder for your open
+  projects.
+* <kbd>[tmux-prefix]</kbd>+<kbd>L</kbd>: Open a fuzzy-finder for your open
+* <kbd>[tmux-prefix]</kbd>+<kbd>J</kbd>: Open a new shell in this window's
+  directory.
+* <kbd>[tmux-prefix]</kbd>+<kbd>Ctrl</kbd>+<kbd>L</kbd>: Switch between the
+  most recent shell and the most recent project.
+* <kbd>[tmux-prefix]</kbd>+<kbd>G</kbd>: Center or uncenter the current window.
+
+*Just in projects:*
+* [no prefix] <kbd>Ctrl</kbd>+<kbd>L</kbd>: Switch between a project's editor
+  and its shell.
 
 ## installation
 
