@@ -7,6 +7,8 @@ source $BASE_DIR/lib/oakthree.sh
 
 BIN_DIR="$BASE_DIR/bin"
 
+_tmux set -g @oakthree-tmux "$BASE_DIR/lib/tmux"
+
 # Hide the useless status bar
 _tmux set -g status off
 
@@ -38,6 +40,9 @@ _tmux bind -n "C-l" if-shell "bash $BIN_DIR/is-shell #{window_name}" \
 _tmux bind "C-l" if-shell "bash $BIN_DIR/is-shell #{session_name}" \
   "switch-client -t $OT_PROJECTS" \
   "switch-client -t $OT_SHELLS"
+
+_tmux bind "\;" if-shell "bash $BIN_DIR/is-shell #{session_name}" \
+  "kill-window" \
 
 # Create a window flanked by two blank panes so that things are centered.
 # For now this is just a placeholder as the intention is to move it.
