@@ -23,7 +23,7 @@ if [ "$SESSION" == "$OT_PROJECTS" ]; then
 fi
 
 if [ -z "$project" ]; then
-  _tmux display-message "no oakthree projects"
+  _tmux display-message "$(_tmux getv 'message:no-projects')"
   exit 0
 fi
 
@@ -36,7 +36,7 @@ project=$( while read -r line; do
 done <<< "$project")
 
 project=$(echo "$project" | \
-  _fzf -n 1 --with-nth=1 --header="oakthree | projects" | \
+  _fzf -n 1 --with-nth=1 --header="$(_tmux getv 'ui:project-header')" | \
   perl -n -e '/\[(\d+)\]/ && print $1')
 
 if [ -z "$project" ]; then

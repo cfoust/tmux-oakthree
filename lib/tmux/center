@@ -8,7 +8,7 @@ source "$SCRIPT_DIR"/../oakthree.sh
 BIN_DIR="$SCRIPT_DIR/../bin"
 
 # TODO Generate a sensible amount automatically
-margin=30
+margin="$(_tmux getv 'ui:margin-percent')"
 
 panes=$(_tmux display-message -p "#{window_panes}")
 

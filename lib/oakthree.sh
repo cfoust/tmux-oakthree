@@ -6,9 +6,10 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export BIN_DIR="$SCRIPT_DIR"/../bin
 
-OT_SHELL_SUFFIX="~"
-export OT_PROJECTS="ot"
-export OT_SHELLS="ot$OT_SHELL_SUFFIX"
+export OT_PREFIX="ot"
+export OT_SHELL_SUFFIX="~"
+export OT_PROJECTS="$OT_PREFIX"
+export OT_SHELLS="$OT_PREFIX$OT_SHELL_SUFFIX"
 
 # Wrapped executables. We wrap some calls to tmux and fzf so that we can extend
 # their functionality and make consistent UI's according to some global

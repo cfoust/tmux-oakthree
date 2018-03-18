@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# Get a variable that the user might have changed from the running tmux
+# session.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../oakthree.sh
+
+result=$(tmux show-option -gv "@$OT_PREFIX-$1" 2>/dev/null)
+
+if [ "$?" == "1" ]; then
+  exit 0
+fi
+
+echo "$result"

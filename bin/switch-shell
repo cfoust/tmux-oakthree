@@ -7,33 +7,31 @@ source "$SCRIPT_DIR"/../lib/oakthree.sh
 
 SESSION=$(_tmux get-session)
 
-project=$(_tmux list-windows \
+shell=$(_tmux list-windows \
   -t "$OT_SHELLS" \
   -F "#{pane_current_path} #{pane_current_command} [#{window_index}]")
 
 # Remove the last window from the list if we're already in the target session.
 # This is so the fzf window doesn't show up.
 if [ "$SESSION" == "$OT_SHELLS" ]; then
-  project=$(echo "$project" | sed '$d') # Deletes the last line in $project
+  shell=$(echo "$shell" | sed '$d') # Deletes the last line in $shell
 fi
 
-if [ -z "$project" ]; then
-  _tmux display-message "no oakthree shells"
+if [ -z "$shell" ]; then
+  _tmux display-message "$(_tmux getv 'message:no-shells')"
   exit 0
 fi
 
-project=$(echo "$project" | \
-          _fzf -n 1..2 --with-nth=1,2 --header="oakthree | shells" | \
+shell=$(echo "$shell" | \
+          _fzf -n 1..2 --with-nth=1,2 --header="$(_tmux getv 'ui:shell-header')" | \
           perl -n -e '/\[(\d+)\]/ && print $1') # Extract window id
 
-if [ -z "$project" ]; then
+if [ -z "$shell" ]; then
   exit 0
 fi
 
 if [ "$SESSION" != "$OT_SHELLS" ]; then
-  # Has to be done sequentially like this in one tmux command, so this logic
-  # can't be simplified.
-  _tmux switch-client -t "$OT_SHELLS"\; select-window -t "$project"
+  _tmux switch-client -t "$OT_SHELLS"\; select-window -t "$shell"
 else
-  _tmux select-window -t "$project"
+  _tmux select-window -t "$shell"
 fi

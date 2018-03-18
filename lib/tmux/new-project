@@ -20,12 +20,27 @@ shell_name="$window_name$OT_SHELL_SUFFIX"
 _tmux remove-window "$OT_PROJECTS:$window_name"
 _tmux remove-window "$OT_PROJECTS:$shell_name"
 
-_tmux switch-client -t "$OT_PROJECTS" \; \
-  new-window            \
+# Allow the user to automatically center projects by setting @ot-auto-center to true.
+if [ "$(_tmux getv 'auto-center')" == "true" ]; then
+  _tmux switch-client -t "$OT_PROJECTS" \; \
+    set-hook -g after-new-window "run-shell 'bash $SCRIPT_DIR/tmux/center'" \; \
+    new-window            \
     -c "$directory"     \
     -n "$shell_name"    \
-    "$BIN_DIR/shell" \; \
-  new-window            \
+    "$BIN_DIR/shell"  \;\
+    new-window            \
+    -c "$directory"     \
+    -n "$window_name"   \
+    "$BIN_DIR/editor" \;\
+    set-hook -gu after-new-window
+else
+  _tmux switch-client -t "$OT_PROJECTS" \; \
+    new-window            \
+    -c "$directory"     \
+    -n "$shell_name"    \
+    "$BIN_DIR/shell"  \;\
+    new-window            \
     -c "$directory"     \
     -n "$window_name"   \
     "$BIN_DIR/editor"
+fi
