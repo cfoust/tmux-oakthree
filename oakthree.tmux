@@ -32,6 +32,7 @@ _tmux setv "message:no-projects" "no oakthree projects"
 ################################
 # Bindings and window management
 ################################
+_tmux unbind -a -T prefix
 
 # For debugging
 _tmux bind q kill-server
