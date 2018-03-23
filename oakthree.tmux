@@ -36,6 +36,7 @@ _tmux unbind -a -T prefix
 
 # For debugging
 _tmux bind q kill-server
+_tmux bind p copy-mode
 
 # Convert any shell into an oakthree project.
 _tmux bind o run-shell "bash $BIN_DIR/new-project"
@@ -62,6 +63,12 @@ _tmux bind "\;" if-shell "bash $BIN_DIR/is-shell #{session_name}" \
 # Create a window flanked by two blank panes so that things are centered.
 # For now this is just a placeholder as the intention is to move it.
 _tmux bind g run-shell "bash $BASE_DIR/lib/tmux/center"
+
+# Allow the user to provide their own binding configuration.
+OAKTHREE_CONF="$HOME/.oakthree.conf"
+if [ -f "$OAKTHREE_CONF" ]; then
+  _tmux source "$OAKTHREE_CONF"
+fi
 
 # You have to wait for the new-session that gets called after tmux reads config files
 # in order to do any session/window/pane initialization.

@@ -9,7 +9,7 @@ if [ -z "$1" ]; then
   exit
 fi
 
-directory=$(_tmux display-message -p '#{pane_current_path}')
+directory="$1"
 window_name=$(basename "$directory")
 shell_name="$window_name$OT_SHELL_SUFFIX"
 
