@@ -23,7 +23,9 @@ _tmux set -g pane-active-border-bg default
 # So oakthree plugins can reference things inside of oakthree.
 _tmux setv "base-directory" "$BASE_DIR"
 
-_tmux setv "ui:margin-percent" "30"
+_tmux setv "ui:margin-cols" "30"
+# You can also set this:
+# _tmux setv "ui:margin-rows" "10"
 _tmux setv "ui:project-header" "oakthree ▹ projects"
 _tmux setv "ui:shell-header" "oakthree ▹ shells"
 _tmux setv "message:no-shells" "no oakthree shells"

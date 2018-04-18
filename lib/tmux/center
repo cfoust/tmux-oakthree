@@ -8,16 +8,45 @@ source "$SCRIPT_DIR"/../oakthree.sh
 BIN_DIR="$SCRIPT_DIR/../bin"
 
 # TODO Generate a sensible amount automatically
-margin="$(_tmux getv 'ui:margin-percent')"
+hmargin="$(_tmux getv 'ui:margin-cols')"
+vmargin="$(_tmux getv 'ui:margin-rows')"
 
-panes=$(_tmux display-message -p "#{window_panes}")
+# We need at least the horizontal margin to be set in order to center.
+if [ -z "$hmargin" ]; then
+  echo "ui:margin-cols is not set."
+  exit 1
+fi
 
-if [ "$panes" -gt "1" ]; then
-  _tmux select-pane -L\; kill-pane\; select-pane -R\; kill-pane
+get_panes() {
+  _tmux display-message -p "#{window_panes}"
+}
+
+# Just kill the top and bottom panes if we have vertical margins.
+# The horizontal case will get the rest.
+if [ "$(get_panes)" == "5" ]; then
+  _tmux select-pane -U\; \
+    kill-pane\; \
+    select-pane -D\; \
+    kill-pane
+fi
+
+# In just the horizontal case, we want to kill only the left and right panes.
+if [ "$(get_panes)" == "3" ]; then
+  _tmux select-pane -L\; \
+    kill-pane\; \
+    select-pane -R\; \
+    kill-pane
   exit
 fi
 
-_tmux split-window -h -l "$margin" "bash $BIN_DIR/blank"
+_tmux split-window -h -l "$hmargin" "bash $BIN_DIR/blank"
 _tmux select-pane -L
-_tmux split-window -hb -l "$margin" "bash $BIN_DIR/blank"
+_tmux split-window -hb -l "$hmargin" "bash $BIN_DIR/blank"
 _tmux select-pane -R
+
+if [ ! -z "$vmargin" ]; then
+  _tmux split-window -v -l "$vmargin" "bash $BIN_DIR/blank"
+  _tmux select-pane -U
+  _tmux split-window -vb -l "$vmargin" "bash $BIN_DIR/blank"
+  _tmux select-pane -D
+fi
