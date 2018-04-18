@@ -23,11 +23,32 @@ _tmux set -g pane-active-border-bg default
 # So oakthree plugins can reference things inside of oakthree.
 _tmux setv "base-directory" "$BASE_DIR"
 
+# The horizontal margin for centered project windows.
 _tmux setv "ui:margin-cols" "30"
-# You can also set this:
+
+# If this is set, oakthree creates vertical margins for project
+# windows in addition to horizontal ones.
 # _tmux setv "ui:margin-rows" "10"
+
+# Sets the command that runs inside the margins.
+# By default the margins are blank.
+# _tmux setv "ui:margin-command" "htop"
+# You can also do:
+# _tmux setv "ui:margin-command-left" "htop"
+# _tmux setv "ui:margin-command-right" "cowsay 'oakthree is cool'"
+# _tmux setv "ui:margin-command-top" "/bin/some_command"
+# _tmux setv "ui:margin-command-bottom" "/bin/some_command"
+# You can configure all or none of them. `ui:margin-command` is used
+# if one of these is not defined.
+
+# Localization
+# --------
+# Shown by the fzf prompt when choosing a project.
 _tmux setv "ui:project-header" "oakthree ▹ projects"
+
+# Shown by the fzf prompt when choosing a shell.
 _tmux setv "ui:shell-header" "oakthree ▹ shells"
+
 _tmux setv "message:no-shells" "no oakthree shells"
 _tmux setv "message:no-projects" "no oakthree projects"
 

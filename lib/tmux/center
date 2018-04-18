@@ -5,18 +5,6 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$SCRIPT_DIR"/../oakthree.sh
 
-BIN_DIR="$SCRIPT_DIR/../bin"
-
-# TODO Generate a sensible amount automatically
-hmargin="$(_tmux getv 'ui:margin-cols')"
-vmargin="$(_tmux getv 'ui:margin-rows')"
-
-# We need at least the horizontal margin to be set in order to center.
-if [ -z "$hmargin" ]; then
-  echo "ui:margin-cols is not set."
-  exit 1
-fi
-
 get_panes() {
   _tmux display-message -p "#{window_panes}"
 }
@@ -39,14 +27,46 @@ if [ "$(get_panes)" == "3" ]; then
   exit
 fi
 
-_tmux split-window -h -l "$hmargin" "bash $BIN_DIR/blank"
+BIN_DIR="$SCRIPT_DIR/../bin"
+
+# TODO Generate a sensible amount automatically
+hmargin="$(_tmux getv 'ui:margin-cols')"
+vmargin="$(_tmux getv 'ui:margin-rows')"
+
+# We need at least the horizontal margin to be set in order to center.
+if [ -z "$hmargin" ]; then
+  echo "ui:margin-cols is not set."
+  exit 1
+fi
+
+command="bash $BIN_DIR/blank"
+
+get_command() {
+  local result
+  result="$(_tmux getv ui:margin-command$1)"
+
+  if [ -z "$result" ]; then
+    echo "$command"
+    return 0
+  fi
+
+  echo "$result"
+}
+
+command="$(get_command)"
+right_command="$(get_command '-right')"
+left_command="$(get_command '-left')"
+top_command="$(get_command '-top')"
+bottom_command="$(get_command '-bottom')"
+
+_tmux split-window -h -l "$hmargin" "$right_command"
 _tmux select-pane -L
-_tmux split-window -hb -l "$hmargin" "bash $BIN_DIR/blank"
+_tmux split-window -hb -l "$hmargin" "$left_command"
 _tmux select-pane -R
 
 if [ ! -z "$vmargin" ]; then
-  _tmux split-window -v -l "$vmargin" "bash $BIN_DIR/blank"
+  _tmux split-window -v -l "$vmargin" "$top_command"
   _tmux select-pane -U
-  _tmux split-window -vb -l "$vmargin" "bash $BIN_DIR/blank"
+  _tmux split-window -vb -l "$vmargin" "$bottom_command"
   _tmux select-pane -D
 fi
