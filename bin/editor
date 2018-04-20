@@ -5,4 +5,10 @@
 # Allow the use of C-s in vim
 stty -ixon
 
+source "$SCRIPT_DIR"/../lib/oakthree.sh
+
+tmux wait-for "$OT_CENTER_CHANNEL"
+
+source $HOME/.bashrc
+
 while :; do $EDITOR; done

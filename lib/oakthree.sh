@@ -10,6 +10,7 @@ export OT_PREFIX="ot"
 export OT_SHELL_SUFFIX="~"
 export OT_PROJECTS="$OT_PREFIX"
 export OT_SHELLS="$OT_PREFIX$OT_SHELL_SUFFIX"
+export OT_CENTER_CHANNEL="ot-center-channel"
 
 # Wrapped executables. We wrap some calls to tmux and fzf so that we can extend
 # their functionality and make consistent UI's according to some global

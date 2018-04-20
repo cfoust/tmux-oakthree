@@ -14,8 +14,8 @@ BIN_DIR="$BASE_DIR/bin"
 _tmux set -g status off
 
 # Make pane borders nearly invisible
-_tmux set -g pane-active-border-fg black
-_tmux set -g pane-active-border-bg default
+_tmux set -g pane-active-border-style fg='#d5ccba',bg='#d5ccba'
+_tmux set -g pane-border-style fg='#d5ccba',bg='#d5ccba'
 
 #####################################
 # Initialization of oakthree defaults

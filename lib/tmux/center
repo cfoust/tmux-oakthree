@@ -59,14 +59,18 @@ left_command="$(get_command '-left')"
 top_command="$(get_command '-top')"
 bottom_command="$(get_command '-bottom')"
 
-_tmux split-window -h -l "$hmargin" "$right_command"
-_tmux select-pane -L
-_tmux split-window -hb -l "$hmargin" "$left_command"
-_tmux select-pane -R
+_tmux split-window -h -l "$hmargin" "$right_command" \; \
+  select-pane -L \; \
+  split-window -hb -l "$hmargin" "$left_command" \; \
+  select-pane -R
 
+# Tell the centered windows we're done manipulating things.
 if [ ! -z "$vmargin" ]; then
-  _tmux split-window -v -l "$vmargin" "$top_command"
-  _tmux select-pane -U
-  _tmux split-window -vb -l "$vmargin" "$bottom_command"
-  _tmux select-pane -D
+  _tmux split-window -v -l "$vmargin" "$top_command"\; \
+    select-pane -U \; \
+    split-window -vb -l "$vmargin" "$bottom_command"\; \
+    select-pane -D \; \
+    wait-for -S "$OT_CENTER_CHANNEL"
+else
+  _tmux wait-for -S "$OT_CENTER_CHANNEL"
 fi
