@@ -2,6 +2,8 @@
 #
 # Start up whatever program is in $EDITOR and reopen it when it closes.
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # Allow the use of C-s in vim
 stty -ixon
 
