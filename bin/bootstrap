@@ -11,9 +11,5 @@ _tmux set-hook -u after-new-session
 _tmux new-session -d -s "$OT_PROJECTS" \; \
   new-session -d -s "$OT_SHELLS" \;       \
   switch-client -t "$OT_SHELLS"
-  # TODO figure out why centering automatically doesn't work
-  #set-hook -g after-new-window "run-shell 'bash $SCRIPT_DIR/tmux/center'"
-  #new-window -c "$path" \;                \
-  #kill-window -t "$OT_SHELLS:^"
 
 true

@@ -6,6 +6,8 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$SCRIPT_DIR"/../lib/oakthree.sh
 
+ensure_sessions
+
 SESSION=$(_tmux get-session)
 
 project=$(_tmux list-windows \

@@ -34,6 +34,18 @@ _tmux() {
   $tmux_bin "$@"
 }
 
+# If a session does not exist, create it.
+_ensure_session() {
+  if ! _tmux list-sessions -F '#{session_name}' | grep "$1"; then
+    _tmux new-session -d -s "$1"
+  fi
+}
+
+ensure_sessions() {
+  _ensure_session "$OT_PROJECTS"
+  _ensure_session "$OT_SHELLS"
+}
+
 _fzf() {
   fzf --margin 30%,30% "$@"
 }
