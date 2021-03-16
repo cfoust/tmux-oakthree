@@ -60,6 +60,7 @@ _tmux unbind -a -T prefix
 # For debugging
 _tmux bind q kill-server
 _tmux bind p copy-mode
+_tmux bind P run-shell "bash $BIN_DIR/edit-history"
 
 # Convert any shell into an oakthree project.
 _tmux bind o run-shell "bash $BIN_DIR/new-project"
