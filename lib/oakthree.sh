@@ -36,7 +36,7 @@ _tmux() {
 
 # If a session does not exist, create it.
 _ensure_session() {
-  if ! _tmux list-sessions -F '#{session_name}' | grep "$1"; then
+  if ! _tmux list-sessions -F '#{session_name}' | grep "$1" > /dev/null; then
     _tmux new-session -d -s "$1"
   fi
 }
