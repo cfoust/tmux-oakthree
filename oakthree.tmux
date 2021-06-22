@@ -58,7 +58,6 @@ _tmux setv "message:no-projects" "no oakthree projects"
 _tmux unbind -a -T prefix
 
 # For debugging
-_tmux bind q kill-server
 _tmux bind p copy-mode
 _tmux bind P run-shell "bash $BIN_DIR/edit-history"
 
