@@ -32,6 +32,9 @@ if [ -z "$shell" ]; then
   exit 0
 fi
 
+jump_history=$(_tmux getv "history")
+_tmux setv "history" "$jump_history,$OT_SHELLS-$shell"
+
 if [ "$SESSION" != "$OT_SHELLS" ]; then
   _tmux switch-client -t "$OT_SHELLS"\; select-window -t "$shell"
 else

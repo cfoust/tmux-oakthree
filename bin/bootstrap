@@ -12,4 +12,7 @@ _tmux new-session -d -s "$OT_PROJECTS" \; \
   new-session -d -s "$OT_SHELLS" \;       \
   switch-client -t "$OT_SHELLS"
 
+_tmux setv "history" ""
+_tmux setv "history-index" "0"
+
 true

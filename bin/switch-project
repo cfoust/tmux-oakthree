@@ -45,6 +45,10 @@ if [ -z "$project" ]; then
   exit 0
 fi
 
+jump_history=$(_tmux getv "history")
+_tmux setv "history" "$jump_history,$OT_PROJECTS-$project"
+_tmux setv "history-index" "0"
+
 if [ "$SESSION" != "$OT_PROJECTS" ]; then
   _tmux switch-client -t "$OT_PROJECTS"\; select-window -t "$project"
 else

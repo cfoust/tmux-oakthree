@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR/../lib/oakthree.sh"
+
+# This is the unique pane id of the current pane.
+pane_id="$(_tmux display-message -p '#D')"
+
+# Capture its contents.
+_tmux capture-pane -p -S - -E - -t "$pane_id" | $EDITOR -

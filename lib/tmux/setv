@@ -5,9 +5,4 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$SCRIPT_DIR"/../oakthree.sh
 
-# Don't overrwrite pre-existing variables.
-if [ _tmux hasv "$1" ]; then
-  exit 0
-fi
-
 tmux set -g "@$OT_PREFIX-$1" "$2"

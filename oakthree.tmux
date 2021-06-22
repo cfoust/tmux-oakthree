@@ -52,6 +52,9 @@ _tmux setv "ui:shell-header" "oakthree ▹ shells"
 _tmux setv "message:no-shells" "no oakthree shells"
 _tmux setv "message:no-projects" "no oakthree projects"
 
+_tmux setv "history" ""
+_tmux setv "history-index" "0"
+
 ################################
 # Bindings and window management
 ################################
@@ -82,6 +85,9 @@ _tmux bind "C-l" if-shell "bash $BIN_DIR/is-shell #{session_name}" \
 
 _tmux bind "\;" if-shell "bash $BIN_DIR/is-shell #{session_name}" \
   "kill-window"
+
+_tmux bind i run-shell "bash $BIN_DIR/jump-forwards"
+_tmux bind o run-shell "bash $BIN_DIR/jump-back"
 
 # Create a window flanked by two blank panes so that things are centered.
 # For now this is just a placeholder as the intention is to move it.

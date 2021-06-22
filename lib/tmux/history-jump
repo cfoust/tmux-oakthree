@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+#
+# Jump $1 slots in history. Positive numbers are forward, negative are backward.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../oakthree.sh
+
+delta=${1:-0}
+current=$(_tmux getv "history-index")
+
+destination=$(($current + $delta))
+
+jumps=$(_tmux getv "history" | tr ',' '\n' | grep .)
+
+num_entries=$(echo "$jumps" | wc -l)
+
+min_index=$((($num_entries * -1) + 1))
+
+if [[ $destination -gt 0 ]]; then
+  destination=0
+fi
+
+if [[ $destination -lt $min_index ]]; then
+  destination=$min_index
+fi
+
+_tmux setv "history-index" "$destination"
+
+offset=$destination
+
+# Now go into target line
+destination=$(($num_entries + $destination))
+
+destination=$(echo "$jumps" | sed "${destination}q;d")
+
+session=$(echo "$destination" | cut -d'-' -f 1)
+index=$(echo "$destination" | cut -d'-' -f 2)
+
+_tmux switch-client -t "$session"\; select-window -t "$index"
