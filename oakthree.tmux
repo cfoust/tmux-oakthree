@@ -65,7 +65,7 @@ _tmux bind p copy-mode
 _tmux bind P run-shell "bash $BIN_DIR/edit-history"
 
 # Convert any shell into an oakthree project.
-_tmux bind o run-shell "bash $BIN_DIR/new-project"
+_tmux bind n run-shell "bash $BIN_DIR/new-project"
 
 # Create a new shell in the current directory.
 # This can be done both in shells and in projects.

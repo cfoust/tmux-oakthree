@@ -20,6 +20,8 @@ shell_name="$window_name$OT_SHELL_SUFFIX"
 _tmux remove-window "$OT_PROJECTS:$window_name"
 _tmux remove-window "$OT_PROJECTS:$shell_name"
 
+_tmux push-history "$OT_PROJECTS-$window_name"
+
 # Allow the user to automatically center projects by setting @ot-auto-center to true.
 if [ "$(_tmux getv 'auto-center')" == "true" ]; then
   _tmux switch-client -t "$OT_PROJECTS" \; \

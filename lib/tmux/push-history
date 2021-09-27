@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# Add $1 to the history list.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../oakthree.sh
+
+jump_history=$(_tmux getv "history")
+_tmux setv "history" "$jump_history,$1"
+_tmux setv "history-index" "0"
