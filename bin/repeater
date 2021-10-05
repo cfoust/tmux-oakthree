@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Start up whatever program is in $EDITOR and reopen it when it closes.
+# Start up whatever program is in $@ and reopen it when it closes.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -13,4 +13,4 @@ tmux wait-for "$OT_CENTER_CHANNEL"
 
 source "$HOME/.bashrc"
 
-while :; do $EDITOR; done
+while :; do $@; done

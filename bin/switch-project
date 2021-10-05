@@ -10,18 +10,12 @@ ensure_sessions
 
 SESSION=$(_tmux get-session)
 
-project=$(_tmux list-windows \
-  -t "$OT_PROJECTS" \
-  -F "#{window_name} [#{window_index}]")
-
-# Remove the "bash" window. Easier than managing the number of windows
-# remaining.
-project=$(echo "$project" | sed '1d') # Deletes the first line in $project
+project=$(_tmux list-projects)
 
 # Remove the last window from the list if we're already in the target session.
 # This is so the fzf window doesn't show up.
 if [ "$SESSION" == "$OT_PROJECTS" ]; then
-  project=$(echo "$project" | sed '$d') # Deletes the last line in $project
+  project=$(echo -e "$project" | sed '$d') # Deletes the last line in $project
 fi
 
 if [ -z "$project" ]; then
@@ -45,10 +39,4 @@ if [ -z "$project" ]; then
   exit 0
 fi
 
-_tmux push-history "$OT_PROJECTS-$project"
-
-if [ "$SESSION" != "$OT_PROJECTS" ]; then
-  _tmux switch-client -t "$OT_PROJECTS"\; select-window -t "$project"
-else
-  _tmux select-window -t "$project"
-fi
+_tmux open-project "$project"

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Open a project.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../oakthree.sh
+
+_tmux push-history "$OT_PROJECTS-$1"
+
+if [ "$SESSION" != "$OT_PROJECTS" ]; then
+  _tmux switch-client -t "$OT_PROJECTS"\; select-window -t "$1"
+else
+  _tmux select-window -t "$1"
+fi

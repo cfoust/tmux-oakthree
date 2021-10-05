@@ -3,7 +3,7 @@
 # Initialize oakthree into the current tmux server.
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $BASE_DIR/lib/oakthree.sh
+source "$BASE_DIR/lib/oakthree.sh"
 
 BIN_DIR="$BASE_DIR/bin"
 
@@ -72,6 +72,7 @@ _tmux bind n run-shell "bash $BIN_DIR/new-project"
 _tmux bind j run-shell "bash $BIN_DIR/new-shell"
 _tmux bind k new-window "bash $BIN_DIR/switch-project"
 _tmux bind l new-window "bash $BIN_DIR/switch-shell"
+_tmux bind m run-shell "bash $BIN_DIR/open-notes"
 
 # Switch back and forth between the editor and the shell inside a project.
 _tmux bind -n "C-l" if-shell "bash $BIN_DIR/is-shell #{window_name}" \

@@ -22,6 +22,19 @@ _tmux remove-window "$OT_PROJECTS:$shell_name"
 
 _tmux push-history "$OT_PROJECTS-$window_name"
 
+REPEATER="$BIN_DIR/repeater"
+
+shift 1
+
+PRIMARY="$REPEATER $*"
+
+# Default to using the editor
+if [[ "$#" -eq 0 ]]; then
+  PRIMARY="$REPEATER $EDITOR"
+fi
+
+SECONDARY="$REPEATER $SHELL"
+
 # Allow the user to automatically center projects by setting @ot-auto-center to true.
 if [ "$(_tmux getv 'auto-center')" == "true" ]; then
   _tmux switch-client -t "$OT_PROJECTS" \; \
@@ -29,20 +42,20 @@ if [ "$(_tmux getv 'auto-center')" == "true" ]; then
     new-window            \
     -c "$directory"     \
     -n "$shell_name"    \
-    "$BIN_DIR/shell"  \;\
+    "$SECONDARY"  \;\
     new-window            \
     -c "$directory"     \
     -n "$window_name"   \
-    "$BIN_DIR/editor" \;\
+    "$PRIMARY" \;\
     set-hook -gu after-new-window
 else
   _tmux switch-client -t "$OT_PROJECTS" \; \
     new-window            \
     -c "$directory"     \
     -n "$shell_name"    \
-    "$BIN_DIR/shell"  \;\
+    "$SECONDARY"  \;\
     new-window            \
     -c "$directory"     \
     -n "$window_name"   \
-    "$BIN_DIR/editor"
+    "$PRIMARY"
 fi

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Check whether a project with name exists.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../oakthree.sh
+
+_tmux list-projects | grep "$1" > /dev/null 2>&1

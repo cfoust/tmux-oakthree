@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# List all of the projects available.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../oakthree.sh
+
+project=$(_tmux list-windows \
+  -t "$OT_PROJECTS" \
+  -F "#{window_name} [#{window_index}]")
+
+# Remove the "bash" window. Easier than managing the number of windows
+# remaining.
+# Deletes the first line in $project
+echo -e "$project" | sed '1d'

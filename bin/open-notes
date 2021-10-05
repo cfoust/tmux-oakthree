@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# Open sncli as a project.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../lib/oakthree.sh
+
+if _tmux has-project "todo"; then
+  _tmux open-project "todo"
+else
+  _tmux new-project "$HOME/Developer/todo" sncli
+fi
