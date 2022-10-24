@@ -18,8 +18,7 @@ export OT_CENTER_CHANNEL="ot-center-channel"
 
 _tmux() {
   # TODO Be more intelligent about finding tmux
-  local tmux_bin
-  tmux_bin=/usr/local/bin/tmux
+  local tmux_bin=$(which tmux)
 
   # Act as a kind of namespace for adding functionality to tmux.
   local target_script
