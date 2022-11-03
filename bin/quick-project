@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# oakthree
+# @tmux, abstracted
+# This script takes a one-letter argument and jumps to an open project with
+# that prefix.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../lib/oakthree.sh
+
+ensure_sessions
+
+SESSION=$(_tmux get-session)
+
+project=$(_tmux list-projects)
+prefix="$1"
+
+# Remove the last window from the list if we're already in the target session.
+# This is so the fzf window doesn't show up.
+if [ "$SESSION" == "$OT_PROJECTS" ]; then
+  project=$(echo -e "$project" | sed '$d') # Deletes the last line in $project
+fi
+
+if [ -z "$project" ]; then
+  _tmux display-message "$(_tmux getv 'message:no-projects')"
+  exit 0
+fi
+
+project=$( while read -r line; do
+  if [[ $line = $prefix* ]]; then
+    echo "$line"
+    break
+  fi
+done <<< "$project")
+
+if [ -z "$project" ]; then
+  exit 0
+fi
+
+project=$(echo "$project" | perl -n -e '/\[(\d+)\]/ && print $1')
+
+_tmux open-project "$project"
