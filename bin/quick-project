@@ -11,7 +11,7 @@ ensure_sessions
 
 SESSION=$(_tmux get-session)
 
-project=$(_tmux list-projects)
+project=$(_tmux list-projects | grep -v '~')
 prefix="$1"
 
 # Remove the last window from the list if we're already in the target session.
