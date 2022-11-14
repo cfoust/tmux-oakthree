@@ -3,6 +3,7 @@
 # Create a new project given a path.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 source "$SCRIPT_DIR"/../oakthree.sh
 
 if [ -z "$1" ]; then
@@ -12,6 +13,10 @@ fi
 directory="$1"
 window_name=$(basename "$directory")
 shell_name="$window_name$OT_SHELL_SUFFIX"
+
+# Save the full path so we can quickly jump to this project
+short_name=${window_name:0:1}
+echo "$directory" > "$OT_CACHE/$short_name"
 
 # Probably have to refine this at some point. If the user tries to start a
 # project in a directory with a basename identical to another project, the old

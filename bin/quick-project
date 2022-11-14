@@ -20,11 +20,6 @@ if [ "$SESSION" == "$OT_PROJECTS" ]; then
   project=$(echo -e "$project" | sed '$d') # Deletes the last line in $project
 fi
 
-if [ -z "$project" ]; then
-  _tmux display-message "$(_tmux getv 'message:no-projects')"
-  exit 0
-fi
-
 project=$( while read -r line; do
   if [[ $line = $prefix* ]]; then
     echo "$line"
@@ -33,6 +28,11 @@ project=$( while read -r line; do
 done <<< "$project")
 
 if [ -z "$project" ]; then
+  if [ -f "$OT_CACHE/$prefix" ]; then
+    _tmux new-project "$(cat $OT_CACHE/$prefix)"
+    exit 0
+  fi
+
   exit 0
 fi
 

@@ -5,6 +5,9 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export BIN_DIR="$SCRIPT_DIR"/../bin
+export OT_CACHE="$SCRIPT_DIR/../cache"
+
+mkdir -p "$OT_CACHE"
 
 export OT_PREFIX="ot"
 export OT_SHELL_SUFFIX="~"
