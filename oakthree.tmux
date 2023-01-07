@@ -93,6 +93,9 @@ _tmux bind o run-shell "bash $BIN_DIR/jump-back"
 # Create a window flanked by two blank panes so that things are centered.
 # For now this is just a placeholder as the intention is to move it.
 _tmux bind g run-shell "bash $BASE_DIR/lib/tmux/center"
+_tmux bind + run-shell "bash $BIN_DIR/delta-gap 5"
+_tmux bind - run-shell "bash $BIN_DIR/delta-gap -5"
+_tmux bind = run-shell "bash $BIN_DIR/autogap"
 
 # Allow the user to provide their own binding configuration.
 OAKTHREE_CONF="$HOME/.oakthree.conf"

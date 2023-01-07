@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Set the horizontal margin.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../lib/oakthree.sh
+
+width="$(_tmux display-message -p '#{window_width}')"
+_tmux setv 'ui:margin-cols' $((($width - 90) / 2))
+_tmux center
+_tmux center

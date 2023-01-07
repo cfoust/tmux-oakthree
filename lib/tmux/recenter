@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Recenter all of the center panes.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SCRIPT_DIR"/../oakthree.sh
+
+for window in $(_tmux list-windows -F "#{window_name}"); do
+  panes=$(_tmux display-message -t "$window" -p -F "#{window_panes}")
+  if [ "$panes" == "3" ]; then
+    echo "$window"
+    _tmux list-panes -t "$window"
+  fi
+done
