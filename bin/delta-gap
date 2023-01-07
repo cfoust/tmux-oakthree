@@ -8,3 +8,4 @@ hmargin="$(_tmux getv 'ui:margin-cols')"
 _tmux setv 'ui:margin-cols' $(($hmargin + $1))
 _tmux center
 _tmux center
+_tmux recenter

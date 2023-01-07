@@ -4,10 +4,14 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$SCRIPT_DIR"/../oakthree.sh
 
+layout=$(_tmux display-message -p -F "#{window_layout}")
+
 for window in $(_tmux list-windows -F "#{window_name}"); do
   panes=$(_tmux display-message -t "$window" -p -F "#{window_panes}")
   if [ "$panes" == "3" ]; then
-    echo "$window"
-    _tmux list-panes -t "$window"
+    other=$(_tmux display-message -t "$window" -p -F "#{window_layout}")
+    if [ "$layout" != "$other" ]; then
+      _tmux select-layout -t "$window" "$layout"
+    fi
   fi
 done

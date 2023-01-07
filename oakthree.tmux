@@ -96,6 +96,8 @@ _tmux bind g run-shell "bash $BASE_DIR/lib/tmux/center"
 _tmux bind + run-shell "bash $BIN_DIR/delta-gap 5"
 _tmux bind - run-shell "bash $BIN_DIR/delta-gap -5"
 _tmux bind = run-shell "bash $BIN_DIR/autogap"
+_tmux bind 1 run-shell "bash $BIN_DIR/autogap 90"
+_tmux bind 2 run-shell "bash $BIN_DIR/autogap 180"
 
 # Allow the user to provide their own binding configuration.
 OAKTHREE_CONF="$HOME/.oakthree.conf"
