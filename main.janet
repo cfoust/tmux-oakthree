@@ -16,7 +16,7 @@
   Set a prefixed tmux variable.
   ``
   [key value]
-  ~(sh/$< tmux set -g (string VAR_PREFIX key) (string value))
+  ~(sh/$< tmux set -g (string VAR_PREFIX ,key) (string ,value))
 )
 
 (defmacro getv
@@ -24,7 +24,7 @@
   Get a prefixed tmux variable as a string.
   ``
   [key]
-  (string/trim (sh/$< tmux show-option -gv (string VAR_PREFIX key)))
+  ~(string/trim (sh/$< tmux show-option -gv (string ,VAR_PREFIX ,key)))
 )
 
 (cmd/main 
