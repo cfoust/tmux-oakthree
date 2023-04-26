@@ -3,14 +3,17 @@
 # Initialize oakthree into the current tmux server.
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$BASE_DIR/lib/oakthree.sh"
 
+export OAKTHREE_PATH="$(which janet) $BASE_DIR/main.janet"
+
+$OAKTHREE_PATH init
+
+source "$BASE_DIR/lib/oakthree.sh"
 BIN_DIR="$BASE_DIR/bin"
 
 ############################
 # Adjustment of tmux options
 ############################
-# Hide the useless status bar
 _tmux set -g status off
 
 # Make pane borders nearly invisible
