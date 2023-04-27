@@ -38,6 +38,11 @@
 
       (pp (os/getenv "OAKTHREE_PATH"))
     )
+    "test" (cmd/fn
+      "test"
+      []
+      (dofile (string (os/getenv "HOME") "/.ot/main.janet") :env (curenv))
+    )
     "serve" (cmd/fn
       "start the oakthree server"
       []
