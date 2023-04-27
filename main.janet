@@ -1,4 +1,5 @@
 (import cmd)
+(import circlet)
 (import sh)
 
 (defmacro t
@@ -36,6 +37,22 @@
       (t set -g status off)
 
       (pp (os/getenv "OAKTHREE_PATH"))
+    )
+    "serve" (cmd/fn
+      "start the oakthree server"
+      []
+      (circlet/server
+        (fn [req]
+          (def [_ action arg] (string/split "/" (get req :uri)))
+
+          {
+           :status 200
+           :headers {"Content-Type" "text/html"}
+           :body (string "<!doctype html><html><body>" "test" "</body></html>")
+           }
+          )
+        8000
+      )
     )
     "eval" (cmd/fn
       "evaluate a command"

@@ -3,11 +3,14 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$SCRIPT_DIR"/../lib/oakthree.sh
 
+export OAKTHREE_PATH="$(which janet) $SCRIPT_DIR/../main.janet"
+
 _tmux set-hook -u after-new-session
 
 # Take over the calling session and consider all of its windows our shells.
 _tmux new-session -d -s "$OT_PROJECTS" \; \
-  new-session -d -s "$OT_SHELLS" \;       \
+  new-session -d -s "$OT_SHELLS" \; \
+  new-session -d -s "ot-server" $OAKTHREE_PATH serve \; \
   switch-client -t "$OT_SHELLS"
 
 _tmux setv "history" ""
